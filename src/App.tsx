@@ -10,6 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { useScrollAnimation } from "./hooks/useScrollAnimation";
+import DownloadButton from "./components/DownloadButton";
 
 // Language translations
 const translations = {
@@ -297,12 +298,23 @@ function App() {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="/TeachersCalculator.exe"
-                    className="hover:text-blue-300 transition-colors"
+                  <button
+                    onClick={() => {
+                      const downloadBtn = document.createElement("button");
+                      downloadBtn.onclick = () => {
+                        const downloader = new DownloadButton({
+                          text: t.nav.download,
+                          fileName: "TeachersCalculator.exe",
+                        });
+                        downloader.handleDownload();
+                      };
+                      downloadBtn.click();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="block hover:text-blue-300 transition-colors py-2 px-1 border-l-4 border-transparent hover:border-blue-300 w-full text-left"
                   >
                     {t.nav.download}
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <a
@@ -385,12 +397,23 @@ function App() {
                 </a>
               </li>
               <li>
-                <a
-                  href="/TeachersCalculator.exe"
-                  className="block hover:text-blue-300 transition-colors py-2 px-1 border-l-4 border-transparent hover:border-blue-300"
+                <button
+                  onClick={() => {
+                    const downloadBtn = document.createElement("button");
+                    downloadBtn.onclick = () => {
+                      const downloader = new DownloadButton({
+                        text: t.nav.download,
+                        fileName: "TeachersCalculator.exe",
+                      });
+                      downloader.handleDownload();
+                    };
+                    downloadBtn.click();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block hover:text-blue-300 transition-colors py-2 px-1 border-l-4 border-transparent hover:border-blue-300 w-full text-left"
                 >
                   {t.nav.download}
-                </a>
+                </button>
               </li>
               <li>
                 <a
@@ -425,13 +448,11 @@ function App() {
               {t.hero.subtitle}
             </p>
             <div className="pt-2 sm:pt-4">
-              <a
-                href="/TeachersCalculator.exe"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-lg inline-flex items-center transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-xl"
-              >
-                <Download className="mr-2 h-5 w-5" />
-                {t.hero.downloadBtn}
-              </a>
+              <DownloadButton
+                text={t.hero.downloadBtn}
+                fileName="TeachersCalculator.exe"
+                variant="primary"
+              />
             </div>
           </div>
           <div
@@ -536,7 +557,7 @@ function App() {
       >
         <div className="container mx-auto text-center relative z-10">
           <div
-            className={`transform transition-all duration-1000 ${
+            className={`transform transition-all duration-1000 delay-300 ${
               downloadAnimation.isVisible
                 ? "translate-y-0 opacity-100"
                 : "translate-y-20 opacity-0"
@@ -548,13 +569,11 @@ function App() {
             <p className="text-base sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto">
               {t.download.subtitle}
             </p>
-            <a
-              href="/TeachersCalculator.exe"
-              className="bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 sm:py-4 px-8 sm:px-10 rounded-lg inline-flex items-center transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-xl"
-            >
-              <Download className="mr-2 h-5 sm:h-6 w-5 sm:w-6" />
-              {t.download.downloadBtn}
-            </a>
+            <DownloadButton
+              text={t.download.downloadBtn}
+              fileName="TeachersCalculator.exe"
+              variant="secondary"
+            />
           </div>
           <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4">
             {[t.download.free, t.download.noReg, t.download.compatible].map(
